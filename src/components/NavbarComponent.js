@@ -1,11 +1,9 @@
 import React from "react";
-// import {Nav, Navbar, NavDropdown, Image } from 'reactstrap'
 import {Nav, Navbar, NavDropdown, Image } from 'react-bootstrap'
-// import ProfilPic from '../../public/'
 
 const NavbarComponent = () => {
   return (
-    <Navbar variant="dark" expand="lg" >
+    <Navbar variant="dark" expand="md" className="px-3 py-1">
       <Navbar.Brand href="#home"><strong>Kasir</strong> App</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-between">

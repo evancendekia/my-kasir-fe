@@ -27,40 +27,22 @@ const getcolor = (status)=>{
                 break;
   }
 }
-const TableList = ({table, time}) => {
-  
-
-  // useEffect(() => {
-  //     const timer = setInterval(() => { // Creates an interval which will update the current data every minute
-  //     // This will trigger a rerender every component that uses the useDate hook.
-  //     var today = new Date();
-  //     const dataTime = today.toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric', second: 'numeric' });
-  //     console.log('dataTime',dataTime)
-  //     setTime(dataTime);
-  //   }, 60 * 1000);
-  //   return () => {
-  //     clearInterval(timer); // Return a funtion to clear the timer so that it will stop being called on unmount
-  //   }
-  // }, []);
-  // const day = today.toLocaleDateString(locale, { weekday: 'long' });
-  // const date = `${day}, ${today.getDate()} ${today.toLocaleDateString(locale, { month: 'long' })}\n\n`;
-
-  // const hour = today.getHours();
-  // const wish = `Good ${(hour < 12 && 'Morning') || (hour < 17 && 'Afternoon') || 'Evening'}, `;
-
-  
-
-  // const d = new Date();
-  // let minutes = d.getMinutes();
-  // let hours = d.getHours();
-  // let seconds = d.getSeconds();
+const TableList = (props) => {
+  let {table, time} = props;
   return (
     
     <Col lg={2} md={3} sm={4} xs={6} className="p-3  text-center" style={{overflow: "hidden"}} >
       <Card className="text-center">
       <Card.Header>{table.status == 'O' ? `${time}` : `00:00:00`}</Card.Header>
       <Card.Body className="p-0">
-        <button href="#" className={`btn btn-squared-default-plain ${getcolor(table.status)} btn-success text-center`} style={squareMd} >
+        <button
+          onClick={(e)=>{
+            e.preventDefault();
+            props.onSelectButton(table)
+          }}
+          className={`btn btn-squared-default-plain ${getcolor(table.status)} btn-success text-center`} 
+          style={squareMd} 
+        >
           <h1>{table.nomor}</h1>
         </button>
       </Card.Body>

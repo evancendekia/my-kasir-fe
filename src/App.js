@@ -12,7 +12,7 @@ export default class App extends Component {
     return (
       <BrowserRouter>
           <NavbarComponent />
-          <main>
+          <main className='px-3 py-2'>
             <Switch>
               <Route  path="/" component={Table} exact/>
               <Route  path="/home" component={Home} exact/>
