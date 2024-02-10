@@ -1,3 +1,9 @@
+:root{
+  --available: #21ca7c;
+  --occupied: #0dcaf0;
+  --black-soft: #313131;
+}
+
 body {
   margin: 0;
   font-family: 'Public Sans', sans-serif;
@@ -38,18 +44,62 @@ body {
         font-weight: 800;
     }
 
-.btn-squared-default-plain
+  .btn-squared-default-plain
+  {
+      width: 100% !important;
+      /* height: calc(10vh - 16px) !important;  */
+      /* padding-top: 100%; */
+      font-size: 10px;
+  }
+
+/* .btn-squared-default-plain:hover
 {
-    width: 100% !important;
-    /* height: calc(10vh - 16px) !important;  */
-    /* padding-top: 100%; */
-    font-size: 10px;
+    border: 0px solid white;
+} */
+
+.bg-available
+{
+  color: var(--black-soft);
+  background-color: var(--available);
+  background-image: linear-gradient(to bottom left, var(--available) 0%, var(--available) 50%, var(--available), var(--available));
+}
+button.bg-available:hover
+{
+  color: white;
 }
 
-    .btn-squared-default-plain:hover
-    {
-        border: 0px solid white;
-    }
+.bg-occupied
+{
+  color: var(--black-soft);
+  background-color: var(--occupied);
+  background-image: linear-gradient(to bottom left, var(--occupied) 0%, var(--occupied) 50%, var(--occupied), var(--occupied));
+}
+button.bg-occupied:hover
+{
+  color: white;
+}
+
+.bg-booked-available
+{
+  color: var(--black-soft);
+  background-color: var(--available);
+  background-image: linear-gradient(to bottom left, var(--available) 50%,  #ffc107 51%);
+}
+button.bg-booked-available:hover
+{
+  color: white;
+}
+
+.bg-booked-occupied
+{
+  color: var(--black-soft);
+  background-color: #ffc107; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to bottom left, var(--occupied) 0%, var(--occupied) 50%, #ffc107 51%, #ffc107 100%);
+}
+button.bg-booked-occupied:hover
+{
+  color: white;
+}
 @media only screen and (max-height: 1000px) {
   .hasil {
     height: 80vh;

@@ -1,5 +1,6 @@
+import Dashboard from './Dashboard/Dashboard'
 import Home from './Home'
 import Sukses from './Sukses'
-import Table from './Table'
+import Table from './Table/Table'
 
-export { Home, Sukses, Table }
+export { Dashboard, Home, Sukses, Table }

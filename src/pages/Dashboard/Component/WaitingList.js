@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Card } from "react-bootstrap";
-import { numberWithCommas } from "../utils/utils";
+import { numberWithCommas } from "../../../utils/utils";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -27,7 +27,7 @@ const getcolor = (status)=>{
                 break;
   }
 }
-const TableList = (props) => {
+const WaitingList = (props) => {
   let {table, time} = props;
   return (
     
@@ -46,10 +46,10 @@ const TableList = (props) => {
           <h1>{table.nomor}</h1>
         </button>
       </Card.Body>
-      <Card.Footer className="text-muted">Tipe Meja : {table.type}</Card.Footer>
+      <Card.Footer className="text-muted">{table.type}</Card.Footer>
     </Card>
     </Col>
   );
 };
 
-export default TableList;
+export default WaitingList;

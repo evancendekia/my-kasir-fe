@@ -8,8 +8,8 @@ const NavbarComponent = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-between">
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#link">Meja</Nav.Link>
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/table">Meja</Nav.Link>
           <Nav.Link href="#link">Resto</Nav.Link>
           <Nav.Link href="#link">Laporan</Nav.Link>
           <Nav.Link href="#link">Statistik</Nav.Link>

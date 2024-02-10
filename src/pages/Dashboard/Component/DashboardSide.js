@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { Badge, Card, Col, ListGroup, Row, Button, Form, Tab, Tabs, Table   } from "react-bootstrap";
-import { numberWithCommas } from "../utils/utils";
-import ModalKeranjang from "./ModalKeranjang";
-import TotalBayar from "./TotalBayar";
-import { API_URL } from "../utils/constants";
+import { numberWithCommas } from "../../../utils/utils";
+import ModalKeranjang from "../../../components/ModalKeranjang";
+import TotalBayar from "../../../components/TotalBayar";
+import { API_URL } from "../../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
 import Select from 'react-select'
 
-export default class DetailMeja extends Component {
+export default class DashboardSide extends Component {
 	constructor(props) {
 		super(props);
-		console.log('props',props)
 
 		this.state = {
 				showModal: false,
@@ -41,7 +40,28 @@ export default class DetailMeja extends Component {
 		};
 		
 		this.getcolor = this.getcolor.bind(this);
+    this.getTimeLeft = this.getTimeLeft.bind(this);
+		// this.randomDate = this.randomDate.bind(this);
 	}
+
+  getTimeLeft(add){
+    // this.randomDate();
+    var date = new Date();
+    var hour    = date.getHours();
+    var newDate = new Date(2025, 2, 24, (hour+1), (10+add),13); //2025-02-05 22:10:13
+    // console.log('newDate', newDate)
+
+    var seconds = Math.floor((newDate - (date))/1000);
+    var minutes = Math.floor(seconds/60);
+    var hours = Math.floor(minutes/60);
+    var days = Math.floor(hours/24);
+
+    hours = hours-(days*24);
+    minutes = minutes-(days*24*60)-(hours*60);
+    seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60);
+    return `${hours}:${minutes}:${seconds}`;
+
+  }
 
   
 	getcolor = (status)=>{
@@ -58,17 +78,63 @@ export default class DetailMeja extends Component {
 	}
 
   render() {
-    const { selectedTable } = this.props;
+    const { timeDiff } = this.props;
     return (
       <Col md={3} className="mt-3 px-3">
         <h4>
-          <strong>Detil Meja</strong>
+          <strong>Segera selesai</strong>
         </h4>
         <hr />
           <Card className="hasil" style={{height: "80vh"}} >
-            <Card.Header className={`fw-bold ${this.getcolor(selectedTable.status)}`}>Meja : {selectedTable && selectedTable.nomor != null ? selectedTable.nomor : 'Pilih meja...'}</Card.Header>
-            
-						{ selectedTable && selectedTable.status == 'O' ?
+            {/* <Card.Header className={`fw-bold ${this.getcolor(selectedTable.status)}`}>Meja : {selectedTable && selectedTable.nomor != null ? selectedTable.nomor : 'Pilih meja...'}</Card.Header> */}
+            <Card.Body className="border-1">
+										<Table striped>
+											<thead>
+												<tr className="text-center">
+													<th>Meja</th>
+													<th>Sisa Waktu</th>
+													<th>Jam Selesai</th>
+													{/* <th>Booking</th> */}
+												</tr>
+											</thead>
+											<tbody  className="text-center">
+												<tr>
+													<td>1</td>
+													<td>{this.getTimeLeft(1)}</td>
+													<td>08.00</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>5</td>
+													<td>{this.getTimeLeft(5)}</td>
+													<td className="text-center">08.31</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>7</td>
+													<td>{this.getTimeLeft(7)}</td>
+													<td>08.39</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>{this.getTimeLeft(12)}</td>
+													<td>09.01</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td>4</td>
+													<td>{this.getTimeLeft(32)}</td>
+													<td>09.21</td>
+													<td></td>
+												</tr>
+											</tbody>
+										</Table>
+										{/* <div className="d-flex justify-content-between">
+											<Button variant="success" className="m-1" style={{display: "block", width: "100%"}}>Tambah Pesanan</Button>
+										</div> */}
+										</Card.Body>
+						{/* { selectedTable && selectedTable.status == 'O' ?
 							<Card.Body className="overflow-auto">
 								<Card className="mb-2" >
 									<Card.Header className="text-center">Info</Card.Header>
@@ -254,8 +320,8 @@ export default class DetailMeja extends Component {
 							</Card.Body>
 							
 						}
-            
-            <Card.Footer className="m-0 p-1">
+             */}
+            {/* <Card.Footer className="m-0 p-1">
 						{ selectedTable && selectedTable.status == 'O' ? 
 							// <div className="d-flex justify-content-between">
 								<Row className="p-0 m-0">
@@ -273,7 +339,7 @@ export default class DetailMeja extends Component {
 								<Button variant="success" className="m-1" style={{display: "block", width: "100%"}}>Simpan</Button>
 							</div>
 						}
-            </Card.Footer>
+            </Card.Footer> */}
           </Card>
       </Col>
     );

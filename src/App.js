@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import { NavbarComponent } from './components'
-import { Home, Sukses, Table } from './pages'
+import { Dashboard, Home, Sukses, Table } from './pages'
 
 export default class App extends Component {
   render() {
@@ -14,7 +14,7 @@ export default class App extends Component {
           <NavbarComponent />
           <main className='px-3 py-2'>
             <Switch>
-              <Route  path="/" component={Table} exact/>
+              <Route  path="/" component={Dashboard} exact/>
               <Route  path="/home" component={Home} exact/>
               <Route  path="/sukses" component={Sukses} exact/>
               <Route  path="/table" component={Table} exact/>

@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { Row, Col, Container } from "reactstrap";
-import { ListCategories, TableList, DetailMeja } from "../components";
-import { API_URL } from "../utils/constants";
+import { TableList, DetailMeja } from "../../components";
+import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
 
