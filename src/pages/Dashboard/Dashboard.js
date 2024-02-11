@@ -5,6 +5,14 @@ import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
 
+import withFixedColumns from "react-table-hoc-fixed-columns";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import 'react-table-hoc-fixed-columns/lib/styles.css' // important: this line must be placed after react-table css import
+
+
+const ReactTableFixedColumns = withFixedColumns(ReactTable);
+
 const locale = 'en';
 
 export default class Table extends Component {
@@ -19,7 +27,51 @@ export default class Table extends Component {
       currentDateTime: new Date(),
       time: new Date().toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric', second: 'numeric' }),
       timeDiff : '',
-      selectedTable: {}
+      selectedTable: {},
+      waitingListData : [
+        {time_in: '13.28', name: 'Ade', time: '20.00', play_mode: '2 Jam', table_no: 'Meja 1', contact_person: 'ig (@testtest)'},
+        {time_in: '19.00', name: 'Ari', time: '21.00', play_mode: '3 Jam', table_no: 'Meja 35', contact_person: 'Lokasi'},
+        {time_in: '18.00', name: 'Agus', time: '21.30', play_mode: '1 Jam', table_no: 'Meja 69', contact_person: 'WA (08681xxxxx)'},
+        // {firstName: 'b', lastName: 'test', email: 'test@mail.com'}
+      ],
+      columns : [
+        {
+          Header: 'Masuk',
+          accessor: 'time_in',
+          className: 'text-center',
+        },
+        {
+          Header: 'Nama',
+          accessor: 'name',
+          className: 'text-center',
+        },
+        {
+          Header: 'Booking',
+          // fixed: 'left',
+          columns: [
+            {
+              Header: 'Jam',
+              accessor: 'time',
+              className: 'text-center',
+            },
+            {
+              Header: 'Main',
+              accessor: 'play_mode',
+              className: 'text-center',
+            },
+            {
+              Header: 'Meja',
+              accessor: 'table_no',
+              className: 'text-center',
+            },
+          ]
+        },
+        {
+          Header: 'Contac Person',
+          accessor: 'contact_person',
+          className: 'text-center',
+        },
+      ]
     };
     this.onSelectTable = this.onSelectTable.bind(this);
   }
@@ -64,27 +116,35 @@ export default class Table extends Component {
   }
 
   render() {
-    const { menus, categoriYangDipilih, keranjangs, tables, time, timeDiff, selectedTable } = this.state;
+    const { waitingListData, columns, time, timeDiff, selectedTable } = this.state;
     return (
-        <div style={{maxHeight: "100%", overflow: "hidden"}}>
+        <div style={{maxHeight: "100%", overflow: "hidden", margin: "auto"}}>
           {/* <Container fluid> */}
-            <Row>
-              <Col className="mt-3" >
+            <Row >
+              <Col className="mt-3 " >
                 <h4>
                   <strong >Waiting List</strong>
                 </h4>
                 <hr />
-                {/* <Row className="overflow-auto" style={{overflowY: "scroll", maxHeight: "80vh"}}>
-                  {tables &&
-                    tables.map((table, index) => (
-                      <TableList
-                        key={index}
-                        table={table}
-                        time={time}
-                        onSelectButton={this.onSelectTable}
-                      />
-                    ))}
-                </Row> */}
+                <Row className="overflow-auto" style={{overflowY: "scroll", maxHeight: "80vh", margin: "auto"}}>
+                  <ReactTableFixedColumns
+                    data={waitingListData}
+                    columns={columns}
+                    showPagination={false}
+                    pageSize={10}
+                    // data={TableData}
+                    // columns={columnsTable}
+                    // style={{
+                    //     height: height ? height : "350px"
+                    // }}
+                    // pageSize={rowMinimum != undefined ? (TableData.length < rowMinimum ? rowMinimum : TableData.length) : TableData.length}
+                    // showPagination={false}
+                    // sortable={false}
+                    // loading={loadingClaimsDetail}
+                    className="-striped -highlight mt-0 mx-0 px-0 rounded"
+                    // getTdProps={getTdProps}
+                  />
+                </Row>
               </Col>
               <DashboardSide 
                 // time={time}

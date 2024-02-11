@@ -18,6 +18,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-select": "^5.8.0",
+    "react-table": "^6.11.5",
+    "react-table-hoc-fixed-columns": "^2.3.4",
     "reactstrap": "^9.2.2",
     "sweetalert": "^2.1.2"
   },

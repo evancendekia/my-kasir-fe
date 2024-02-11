@@ -87,14 +87,13 @@ export default class DashboardSide extends Component {
         <hr />
           <Card className="hasil" style={{height: "80vh"}} >
             {/* <Card.Header className={`fw-bold ${this.getcolor(selectedTable.status)}`}>Meja : {selectedTable && selectedTable.nomor != null ? selectedTable.nomor : 'Pilih meja...'}</Card.Header> */}
-            <Card.Body className="border-1">
-										<Table striped>
+            <Card.Body className="border-1 p-0">
+										<Table striped bordered >
 											<thead>
 												<tr className="text-center">
 													<th>Meja</th>
 													<th>Sisa Waktu</th>
 													<th>Jam Selesai</th>
-													{/* <th>Booking</th> */}
 												</tr>
 											</thead>
 											<tbody  className="text-center">
@@ -102,31 +101,26 @@ export default class DashboardSide extends Component {
 													<td>1</td>
 													<td>{this.getTimeLeft(1)}</td>
 													<td>08.00</td>
-													<td></td>
 												</tr>
 												<tr>
 													<td>5</td>
 													<td>{this.getTimeLeft(5)}</td>
 													<td className="text-center">08.31</td>
-													<td></td>
 												</tr>
 												<tr>
 													<td>7</td>
 													<td>{this.getTimeLeft(7)}</td>
 													<td>08.39</td>
-													<td></td>
 												</tr>
 												<tr>
 													<td>2</td>
 													<td>{this.getTimeLeft(12)}</td>
 													<td>09.01</td>
-													<td></td>
 												</tr>
 												<tr>
 													<td>4</td>
 													<td>{this.getTimeLeft(32)}</td>
 													<td>09.21</td>
-													<td></td>
 												</tr>
 											</tbody>
 										</Table>
