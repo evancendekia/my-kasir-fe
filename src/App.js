@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import { NavbarComponent } from './components'
-import { Dashboard, Home, Sukses, Table } from './pages'
+import { Dashboard, Home, Sukses, Table, Setting } from './pages'
 
 export default class App extends Component {
   render() {
@@ -18,6 +18,7 @@ export default class App extends Component {
               <Route  path="/home" component={Home} exact/>
               <Route  path="/sukses" component={Sukses} exact/>
               <Route  path="/table" component={Table} exact/>
+              <Route  path="/setting" component={Setting} exact/>
             </Switch>
           </main>
       </BrowserRouter>

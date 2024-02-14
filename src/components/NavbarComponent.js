@@ -4,7 +4,17 @@ import {Nav, Navbar, NavDropdown, Image } from 'react-bootstrap'
 const NavbarComponent = () => {
   return (
     <Navbar variant="dark" expand="md" className="px-3 py-1">
-      <Navbar.Brand href="#home"><strong>Kasir</strong> App</Navbar.Brand>
+      <Navbar.Brand href="#home">
+        <Image
+          alt=""
+          src="assets/images/app/logo.png"
+          width="30"
+          height="30"
+          className="d-inline-block align-top mx-2"
+          rounded 
+        />
+        <strong>VIXY Billiard</strong> 
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-between">
         <Nav className="mr-auto">
@@ -13,7 +23,7 @@ const NavbarComponent = () => {
           <Nav.Link href="#link">Resto</Nav.Link>
           <Nav.Link href="#link">Laporan</Nav.Link>
           <Nav.Link href="#link">Statistik</Nav.Link>
-          <Nav.Link href="#link">Pengaturan</Nav.Link>
+          <Nav.Link href="/setting">Pengaturan</Nav.Link>
         </Nav>
         <div xs="auto" className="mb-0">
           <Nav className="mr-4">

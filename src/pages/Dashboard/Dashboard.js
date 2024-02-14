@@ -15,7 +15,7 @@ const ReactTableFixedColumns = withFixedColumns(ReactTable);
 
 const locale = 'en';
 
-export default class Table extends Component {
+export default class Dashboard extends Component {
   constructor(props) {
     super(props);
 
@@ -38,12 +38,12 @@ export default class Table extends Component {
         {
           Header: 'Masuk',
           accessor: 'time_in',
-          className: 'text-center',
+          className: 'text-center border-bottom border-start',
         },
         {
           Header: 'Nama',
           accessor: 'name',
-          className: 'text-center',
+          className: 'text-center border-bottom border-start',
         },
         {
           Header: 'Booking',
@@ -52,24 +52,24 @@ export default class Table extends Component {
             {
               Header: 'Jam',
               accessor: 'time',
-              className: 'text-center',
+              className: 'text-center border-bottom border-start',
             },
             {
               Header: 'Main',
               accessor: 'play_mode',
-              className: 'text-center',
+              className: 'text-center border-bottom border-start',
             },
             {
               Header: 'Meja',
               accessor: 'table_no',
-              className: 'text-center',
+              className: 'text-center border-bottom border-start',
             },
           ]
         },
         {
           Header: 'Contac Person',
           accessor: 'contact_person',
-          className: 'text-center',
+          className: 'text-center border-bottom border-start border-end',
         },
       ]
     };
