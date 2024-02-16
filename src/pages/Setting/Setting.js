@@ -28,7 +28,7 @@ export default class Setting extends Component {
       keranjangs: [],
       tables:[], 
       tablesType:[],
-      tablesGrouped:{},
+      accountTypes:[],
       packages: [],
       currentDateTime: new Date(),
       time: new Date().toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric', second: 'numeric' }),
@@ -104,7 +104,7 @@ export default class Setting extends Component {
     }, 1000 )
 
     axios
-    .get(API_URL + "type" )
+    .get(API_URL + "types" )
     .then((res) => {
       const tablesType = res.data;
       this.setState({ tablesType });  
@@ -117,7 +117,7 @@ export default class Setting extends Component {
     .get(API_URL + "meja" )
     .then((res) => {
       const tables = res.data;
-      this.setState({ tables });
+      this.setState({ tables: tables });
     })
     .catch((error) => {
       console.log("Error yaa ", error);
@@ -133,7 +133,16 @@ export default class Setting extends Component {
       console.log("Error yaa ", error);
     });
 
-
+    
+    axios
+    .get(API_URL + "accountTypes" )
+    .then((res) => {
+      const accountTypes = res.data;
+      this.setState({ accountTypes });
+    })
+    .catch((error) => {
+      console.log("Error yaa ", error);
+    });
 
   }
   componentWillUnmount() {
@@ -144,31 +153,121 @@ export default class Setting extends Component {
     this.setState({ selectedTable: table });
   }
 
-  randomDate() {
-    var date = new Date();
-    // var hour = 10 + Math.random() * (24 - 10) | 0;
-    var newDate = date.setHours(22);
-    console.log('newDate', newDate)
-    var timeDiff = newDate.getTime() - date.getTime();
-    console.log('timeDiff',timeDiff)
-    // return date;
-  }
 
   render() {
-    const { tablesType, colourOptions, tables, tablesGrouped, packages } = this.state;
+    const { tablesType, tables, packages,accountTypes } = this.state;
     return (
         <div style={{maxHeight: "100%", overflow: "hidden", margin: "auto"}} className="mt-4">
-          <Accordion defaultActiveKey={['3']} alwaysOpen>
+          <Accordion defaultActiveKey={['1']} alwaysOpen>
             <Accordion.Item eventKey="1">
               <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /> Akun</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum.
+                <Tabs
+                  defaultActiveKey="jenis"
+                  id="uncontrolled-tab-example"
+                  className="mb-3"
+                >
+                  <Tab eventKey="data" title="Data Akun" >
+                    <Card>
+                      <Card.Header>
+                        <div className="d-flex justify-content-between">
+                          <div className="fw-bold">Data Jenis Meja</div>
+                          <div>
+                            <Button variant="success" className="btn btn-sm"><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button>
+                          </div>
+                        </div>
+                      </Card.Header>
+                      <Card.Body className="p-0">
+                        <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}}  className="m-0">
+                          <thead>
+                            <tr className="text-center">
+                              <th>No</th>
+                              <th>Jenis Meja</th>
+                              <th>Harga Reguler</th>
+                              <th>Harga Personal</th>
+                              <th>Waktu Minimum</th>
+                              <th>Jumlah Meja</th>
+                              <th>Nomor Meja</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {tablesType.map((type, index) => {
+                              return (
+                                <tr>
+                                  <td className="text-center">{index+1}</td>
+                                  <td className="text-center">{type.table_type}</td>
+                                  <td className="text-end">{generalHelper.FormatIDR(type.price)}</td>
+                                  <td className="text-end">{generalHelper.FormatIDR(type.personal_price)}</td>
+                                  <td className="text-center">{type.personal_time_minimum} Menit</td>
+                                  <td className="text-center">{tables.filter(function (item) {return item.typeId == type.id}).length}</td>
+                                  <td style={{width: "30vw"}}>
+                                    {tables.filter(function (item) {return item.typeId == type.id}).map((table) => {
+                                      return(<Badge bg="secondary mx-1">Meja {table.nomor}</Badge>)
+                                    })}
+                                  </td>
+                                  <td className="text-center">
+                                    <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
+                                    <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button>
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </Table>
+                      </Card.Body>
+                    </Card>
+                  </Tab>
+                  <Tab eventKey="jenis" title="Jenis Akun">
+                    <Card>
+                      <Card.Header>
+                        <div className="d-flex justify-content-between">
+                          <div className="fw-bold">Data Jenis Akun</div>
+                          {/* <div>
+                            <Button variant="success" className="btn btn-sm"><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button>
+                          </div> */}
+                        </div>
+                      </Card.Header>
+                      <Card.Body className="p-0">
+                        <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}} className="m-0">
+                          <thead>
+                            <tr className="text-center">
+                              <th style={{width: "7vw"}}>#</th>
+                              <th>Jenis Akun</th>
+                              <th>Meja</th>
+                              <th>Resto</th>
+                              <th>Waiting List</th>
+                              <th>Laporan</th>
+                              <th>Pengaturan</th>
+                              <th>Statistik</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {accountTypes.map((accType, index) => {
+                              return (
+                                <tr>
+                                  <td className="text-center">{index+1}</td>
+                                  <td className="text-center">{accType.name}</td>
+                                  <td className="text-center"><Badge bg={accType.table_access === 2 ? 'success' : (accType.table_access === 1 ? 'info' : "danger") + " mx-1"}>{accType.table_access === 2 ? 'View & Edit' : (accType.table_access === 1 ? 'View Only' : "No Access")}</Badge></td>
+                                  <td className="text-center"><Badge bg={accType.resto_access === 2 ? 'success' : (accType.resto_access === 1 ? 'info' : "danger") + " mx-1"}>{accType.resto_access === 2 ? 'View & Edit' : (accType.resto_access === 1 ? 'View Only' : "No Access")}</Badge></td>
+                                  <td className="text-center"><Badge bg={accType.waiting_list_access === 2 ? 'success' : (accType.waiting_list_access === 1 ? 'info' : "danger") + " mx-1"}>{accType.waiting_list_access === 2 ? 'View & Edit' : (accType.waiting_list_access === 1 ? 'View Only' : "No Access")}</Badge></td>
+                                  <td className="text-center"><Badge bg={accType.report_access === 2 ? 'success' : (accType.report_access === 1 ? 'info' : "danger") + " mx-1"}>{accType.report_access === 2 ? 'View & Edit' : (accType.report_access === 1 ? 'View Only' : "No Access")}</Badge></td>
+                                  <td className="text-center"><Badge bg={accType.setting_access === 2 ? 'success' : (accType.setting_access === 1 ? 'info' : "danger") + " mx-1"}>{accType.setting_access === 2 ? 'View & Edit' : (accType.setting_access === 1 ? 'View Only' : "No Access")}</Badge></td>
+                                  <td className="text-center"><Badge bg={accType.stat_access === 2 ? 'success' : (accType.stat_access === 1 ? 'info' : "danger") + " mx-1"}>{accType.stat_access === 2 ? 'View & Edit' : (accType.stat_access === 1 ? 'View Only' : "No Access")}</Badge></td>
+                                  <td className="text-center">
+                                    <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
+                                    {/* <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button> */}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </Table>
+                      </Card.Body>
+                    </Card>
+                  </Tab>
+                </Tabs>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
@@ -262,9 +361,9 @@ export default class Setting extends Component {
                                   <td className="text-end">{generalHelper.FormatIDR(type.price)}</td>
                                   <td className="text-end">{generalHelper.FormatIDR(type.personal_price)}</td>
                                   <td className="text-center">{type.personal_time_minimum} Menit</td>
-                                  <td className="text-center">{tables.filter(function (item) {return item.type == type.table_type}).length}</td>
+                                  <td className="text-center">{tables.filter(function (item) {return item.typeId == type.id}).length}</td>
                                   <td style={{width: "30vw"}}>
-                                    {tables.filter(function (item) {return item.type == type.table_type}).map((table) => {
+                                    {tables.filter(function (item) {return item.typeId == type.id}).map((table) => {
                                       return(<Badge bg="secondary mx-1">Meja {table.nomor}</Badge>)
                                     })}
                                   </td>
