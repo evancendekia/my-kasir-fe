@@ -1,11 +1,11 @@
 import React, { Component, useState, useEffect } from "react";
-import { faPlus, faEdit, faTrash, faTools } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEdit, faTrash, faTools, faBan, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TableList, DashboardSide, WaitingList } from "../../components";
 import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
-import { Accordion, Tab, Tabs, Card, Table, Badge, Button, Row, Col, Form} from "react-bootstrap";
+import { Accordion, Tab, Tabs, Card, Table, Badge, Button, Row, Col, Form, Nav, InputGroup} from "react-bootstrap";
 import * as generalHelper from "../../helpers/generalHelpers"
 
 import withFixedColumns from "react-table-hoc-fixed-columns";
@@ -29,7 +29,10 @@ export default class Setting extends Component {
       tables:[], 
       tablesType:[],
       accountTypes:[],
+      accounts:[],
       packages: [],
+      menuTypes: [],
+      menus: [],
       currentDateTime: new Date(),
       time: new Date().toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric', second: 'numeric' }),
       timeDiff : '',
@@ -133,12 +136,41 @@ export default class Setting extends Component {
       console.log("Error yaa ", error);
     });
 
-    
     axios
     .get(API_URL + "accountTypes" )
     .then((res) => {
       const accountTypes = res.data;
       this.setState({ accountTypes });
+    })
+    .catch((error) => {
+      console.log("Error yaa ", error);
+    });
+
+    axios
+    .get(API_URL + "accounts" )
+    .then((res) => {
+      const accounts = res.data;
+      this.setState({ accounts });
+    })
+    .catch((error) => {
+      console.log("Error yaa ", error);
+    });
+
+    axios
+    .get(API_URL + "menuTypes" )
+    .then((res) => {
+      const menuTypes = res.data;
+      this.setState({ menuTypes });
+    })
+    .catch((error) => {
+      console.log("Error yaa ", error);
+    });
+
+    axios
+    .get(API_URL + "menus?_expand=menuType" )
+    .then((res) => {
+      const menus = res.data;
+      this.setState({ menus });
     })
     .catch((error) => {
       console.log("Error yaa ", error);
@@ -155,15 +187,15 @@ export default class Setting extends Component {
 
 
   render() {
-    const { tablesType, tables, packages,accountTypes } = this.state;
+    const { tablesType, tables, packages, accountTypes, accounts, menuTypes, menus } = this.state;
     return (
         <div style={{maxHeight: "100%", overflow: "hidden", margin: "auto"}} className="mt-4">
-          <Accordion defaultActiveKey={['1']} alwaysOpen>
+          <Accordion defaultActiveKey={['4']} alwaysOpen>
             <Accordion.Item eventKey="1">
               <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /> Akun</Accordion.Header>
               <Accordion.Body>
                 <Tabs
-                  defaultActiveKey="jenis"
+                  defaultActiveKey="data"
                   id="uncontrolled-tab-example"
                   className="mb-3"
                 >
@@ -171,45 +203,34 @@ export default class Setting extends Component {
                     <Card>
                       <Card.Header>
                         <div className="d-flex justify-content-between">
-                          <div className="fw-bold">Data Jenis Meja</div>
+                          <div className="fw-bold">Data Akun</div>
                           <div>
                             <Button variant="success" className="btn btn-sm"><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button>
                           </div>
                         </div>
                       </Card.Header>
                       <Card.Body className="p-0">
-                        <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}}  className="m-0">
+                        <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}} className="m-0">
                           <thead>
                             <tr className="text-center">
-                              <th>No</th>
-                              <th>Jenis Meja</th>
-                              <th>Harga Reguler</th>
-                              <th>Harga Personal</th>
-                              <th>Waktu Minimum</th>
-                              <th>Jumlah Meja</th>
-                              <th>Nomor Meja</th>
+                              <th style={{width: "7vw"}}>#</th>
+                              <th>Nama</th>
+                              <th>Email</th>
+                              <th>Jenis Akun</th>
+                              <th>Status</th>
                               <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            {tablesType.map((type, index) => {
+                            {accounts.map((acc, index) => {
                               return (
                                 <tr>
                                   <td className="text-center">{index+1}</td>
-                                  <td className="text-center">{type.table_type}</td>
-                                  <td className="text-end">{generalHelper.FormatIDR(type.price)}</td>
-                                  <td className="text-end">{generalHelper.FormatIDR(type.personal_price)}</td>
-                                  <td className="text-center">{type.personal_time_minimum} Menit</td>
-                                  <td className="text-center">{tables.filter(function (item) {return item.typeId == type.id}).length}</td>
-                                  <td style={{width: "30vw"}}>
-                                    {tables.filter(function (item) {return item.typeId == type.id}).map((table) => {
-                                      return(<Badge bg="secondary mx-1">Meja {table.nomor}</Badge>)
-                                    })}
-                                  </td>
-                                  <td className="text-center">
-                                    <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
-                                    <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button>
-                                  </td>
+                                  <td className="text-center">{acc.name}</td>
+                                  <td className="text-center">{acc.email}</td>
+                                  <td className="text-center">{accountTypes.filter(function (item) {return item.id == acc.accountTypeId})[0].name}</td>
+                                  <td className="text-center">{acc.status}</td>
+                                  <td className="text-center"> { acc.status == 'Aktif' ? <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faBan} /> Nonaktifkan</Button> : <Button variant="success" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faCheckCircle} /> Aktifkan</Button>}</td>
                                 </tr>
                               );
                             })}
@@ -459,13 +480,151 @@ export default class Setting extends Component {
             <Accordion.Item eventKey="4">
               <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /> Resto</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum.
+              <Tabs
+                  defaultActiveKey="data"
+                  id="uncontrolled-tab-example"
+                  className="mb-3"
+                >
+                  <Tab eventKey="data" title="Data Menu" >
+                    <Card>
+                      <Card.Header>
+                        <div className="d-flex justify-content-between">
+                          <div className="fw-bold">Data Menu</div>
+                          <div>
+                            <Button variant="success" className="btn btn-sm"><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button>
+                          </div>
+                        </div>
+                      </Card.Header>
+                      <Card.Body className="">
+                        
+                            <Tab.Container id="left-tabs-example" defaultActiveKey="Rokok">
+                              <Row>
+                                <Col sm={3}>
+                                  <Nav variant="pills" className="flex-column">
+                                    {
+                                      menuTypes.map((menuType)=>{
+                                        return (
+                                          <Nav.Item className="border rounded">
+                                            <Nav.Link eventKey={menuType.name}>{menuType.name}</Nav.Link>
+                                          </Nav.Item>
+                                        )
+                                      })
+                                    }
+                                  </Nav>
+                                </Col>
+                                <Col sm={9}>
+                                  <Tab.Content>
+                                    {
+                                      menuTypes.map((data)=>{
+                                        return (
+                                          
+                                          <Tab.Pane eventKey={data.name}>
+                                            <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}}  className="m-0">
+                                              <thead>
+                                                <tr className="text-center">
+                                                  <th style={{width: "7vw"}}>#</th>
+                                                  <th>Nama Barang</th>
+                                                  <th>Jenis</th>
+                                                  <th>Stok</th>
+                                                  <th>Action</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                {
+                                                  menus.filter(function (item) {return item.menuTypeId == data.id}).map((item, index)=>{
+                                                    return(
+                                                      <tr>
+                                                        <td className="text-center">{index+1}</td>
+                                                        <td className="text-center">{item.name}</td>
+                                                        <td className="text-center">{item.menuType.name}</td>
+                                                        <td className="text-center">{item.stock}</td>
+                                                        <td className="text-center">
+                                                          <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
+                                                          {/* <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button> */}
+                                                        </td>
+                                                      </tr>
+                                                    )
+                                                  })
+                                                }
+                                              </tbody>
+                                            </Table>
+                                          </Tab.Pane>
+                                        )
+                                      })
+                                    }
+                                  </Tab.Content>
+                                </Col>
+                              </Row>
+                            </Tab.Container>
+                      </Card.Body>
+                    </Card>
+                  </Tab>
+                  <Tab eventKey="jenis" title="Jenis Menu">
+                    <Card>
+                      <Card.Header>
+                        <div className="d-flex justify-content-between">
+                          <div className="fw-bold">Data Seluruh Meja</div>
+                          <div>
+                            <Button variant="success" className="btn btn-sm"><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button>
+                          </div>
+                        </div>
+                      </Card.Header>
+                      <Card.Body className="p-0">
+                        <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}} className="m-0">
+                          <thead>
+                            <tr className="text-center">
+                              <th style={{width: "7vw"}}>#</th>
+                              <th>Jenis Menu</th>
+                              <th>Jumlah Produk</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {menuTypes.map((menuType, index) => {
+                              return (
+                                <tr>
+                                  <td className="text-center">{index+1}</td>
+                                  <td className="text-center">{menuType.name}</td>
+                                  <td className="text-center">{menus.filter(function (item) {return item.menuTypeId == menuType.id}).length}</td>
+                                  <td className="text-center">
+                                    <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
+                                    {/* <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button> */}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </Table>
+                      </Card.Body>
+                    </Card>
+                  </Tab>
+                  <Tab eventKey="ppn" title="Pengaturan PPN">
+                    <Card>
+                      <Card.Header>
+                        <div className="d-flex justify-content-between">
+                          <div className="fw-bold">Pengaturan PPN</div>
+                          <div>
+                            {/* <Button variant="success" className="btn btn-sm"><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button> */}
+                          </div>
+                        </div>
+                      </Card.Header>
+                      <Card.Body className="">
+                        <Form.Group as={Row} className="mb-0" controlId="formPlaintextEmail">
+                          <Form.Label column sm="2">
+                            PPN
+                          </Form.Label>
+                          <Col sm="2"  >
+                            <InputGroup className="mb-3">
+                              {/* <InputGroup.Text>$</InputGroup.Text> */}
+                              <Form.Control defaultValue="10" />
+                              <InputGroup.Text>%</InputGroup.Text>
+                            </InputGroup>
+                          </Col>
+                        </Form.Group>
+                      </Card.Body>
+                    </Card>
+                  </Tab>
+                </Tabs>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
