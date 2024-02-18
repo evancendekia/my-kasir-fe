@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { Hasil, ListCategories, Menus } from "../components";
-import { API_URL } from "../utils/constants";
+import { ListMenuCategory, ListMenu, Order } from "../../components";
+import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
 
@@ -11,14 +11,14 @@ export default class Home extends Component {
 
     this.state = {
       menus: [],
-      categoriYangDipilih: "Makanan",
+      categoriYangDipilih: 0,
       keranjangs: [],
     };
   }
 
   componentDidMount() {
     axios
-      .get(API_URL + "products?category.nama=" + this.state.categoriYangDipilih)
+      .get(API_URL + "menus?_expand=menuType"+ (this.state.categoriYangDipilih > 0 ? "&menuTypeId=" + this.state.categoriYangDipilih :'&_sort=menuTypeId&_order=asc'))
       .then((res) => {
         const menus = res.data;
         this.setState({ menus });
@@ -40,26 +40,27 @@ export default class Home extends Component {
 
   componentDidUpdate(prevState) {
     if(this.state.keranjangs !== prevState.keranjangs) {
-      axios
-      .get(API_URL + "keranjangs")
-      .then((res) => {
-        const keranjangs = res.data;
-        this.setState({ keranjangs });
-      })
-      .catch((error) => {
-        console.log("Error yaa ", error);
-      });
+      // axios
+      // .get(API_URL + "keranjangs")
+      // .then((res) => {
+      //   const keranjangs = res.data;
+      //   this.setState({ keranjangs });
+      // })
+      // .catch((error) => {
+      //   console.log("Error yaa ", error);
+      // });
     }
   }
 
   changeCategory = (value) => {
+    console.log('value',value)
     this.setState({
       categoriYangDipilih: value,
       menus: [],
     });
 
     axios
-      .get(API_URL + "products?category.nama=" + value)
+      .get(API_URL + "menus?_expand=menuType"+ (this.state.categoriYangDipilih > 0 ? "&menuTypeId=" + value :'&_sort=menuTypeId&_order=asc'))
       .then((res) => {
         const menus = res.data;
         this.setState({ menus });
@@ -125,10 +126,10 @@ export default class Home extends Component {
   render() {
     const { menus, categoriYangDipilih, keranjangs } = this.state;
     return (
-        <div className="mt-3">
+        <div className="mt-3" style={{maxHeight: "100%", overflow: "hidden"}}>
           <Container fluid>
             <Row>
-              <ListCategories
+              <ListMenuCategory
                 changeCategory={this.changeCategory}
                 categoriYangDipilih={categoriYangDipilih}
               />
@@ -137,10 +138,10 @@ export default class Home extends Component {
                   <strong>Daftar Produk</strong>
                 </h4>
                 <hr />
-                <Row className="overflow-auto menu">
+                <Row className="overflow-auto menu" style={{overflowY: "scroll", maxHeight: "80vh"}}>
                   {menus &&
                     menus.map((menu) => (
-                      <Menus
+                      <ListMenu
                         key={menu.id}
                         menu={menu}
                         masukKeranjang={this.masukKeranjang}
@@ -148,7 +149,7 @@ export default class Home extends Component {
                     ))}
                 </Row>
               </Col>
-              <Hasil keranjangs={keranjangs} {...this.props}/>
+              <Order keranjangs={keranjangs} {...this.props}/>
             </Row>
           </Container>
         </div>

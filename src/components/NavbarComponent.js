@@ -1,7 +1,10 @@
 import React from "react";
 import {Nav, Navbar, NavDropdown, Image } from 'react-bootstrap'
+import { useLocation } from 'react-router-dom'
 
 const NavbarComponent = () => {
+  const location = useLocation();
+  console.log('location.pathname',location.pathname)
   return (
     <Navbar variant="dark" expand="md" className="px-3 py-1">
       <Navbar.Brand href="#home">
@@ -18,12 +21,12 @@ const NavbarComponent = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-between">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/table">Meja</Nav.Link>
-          <Nav.Link href="#link">Resto</Nav.Link>
-          <Nav.Link href="#link">Laporan</Nav.Link>
-          <Nav.Link href="#link">Statistik</Nav.Link>
-          <Nav.Link href="/setting">Pengaturan</Nav.Link>
+          <Nav.Link href="/" className={location.pathname == '/' || location.pathname == "/home" ? "active" : ""} >Home</Nav.Link>
+          <Nav.Link href="/table" className={location.pathname == "/table" ? "active" : ""} >Meja</Nav.Link>
+          <Nav.Link href="/resto" className={location.pathname == "/resto" ? "active" : ""} >Resto</Nav.Link>
+          <Nav.Link href="#link" className={location.pathname == "/#link" ? "active" : ""} >Laporan</Nav.Link>
+          <Nav.Link href="#link" className={location.pathname == "/#link" ? "active" : ""}>Statistik</Nav.Link>
+          <Nav.Link href="/setting" className={location.pathname == "/setting" ? "active" : ""}>Pengaturan</Nav.Link>
         </Nav>
         <div xs="auto" className="mb-0">
           <Nav className="mr-4">

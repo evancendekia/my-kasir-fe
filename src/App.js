@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import { NavbarComponent } from './components'
-import { Dashboard, Home, Sukses, Table, Setting } from './pages'
+import { Dashboard, Home, Sukses, Table, Resto, Setting } from './pages'
 
 export default class App extends Component {
   render() {
@@ -15,9 +15,10 @@ export default class App extends Component {
           <main className='px-3 py-2'>
             <Switch>
               <Route  path="/" component={Dashboard} exact/>
-              <Route  path="/home" component={Home} exact/>
+              {/* <Route  path="/" component={Home} exact/> */}
               <Route  path="/sukses" component={Sukses} exact/>
               <Route  path="/table" component={Table} exact/>
+              <Route  path="/resto" component={Resto} exact/>
               <Route  path="/setting" component={Setting} exact/>
             </Switch>
           </main>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, ListGroup } from "react-bootstrap";
 import axios from "axios";
-import { API_URL } from "../utils/constants";
+import { API_URL } from "../../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUtensils,
@@ -9,17 +9,17 @@ import {
   faCheese,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Icon = ({ nama }) => {
-  if (nama === "Makanan")
+const Icon = ({ name }) => {
+  if (name === "Makanan")
     return <FontAwesomeIcon icon={faUtensils} className="mr-2" />;
-  if (nama === "Minuman") return <FontAwesomeIcon icon={faCoffee} />;
-  if (nama === "Cemilan")
+  if (name === "Minuman") return <FontAwesomeIcon icon={faCoffee} />;
+  if (name === "Cemilan")
     return <FontAwesomeIcon icon={faCheese} className="mr-2" />;
 
   return <FontAwesomeIcon icon={faUtensils} className="mr-2" />;
 };
 
-export default class ListCategories extends Component {
+export default class ListMenuCategory extends Component {
   constructor(props) {
     super(props);
 
@@ -29,8 +29,19 @@ export default class ListCategories extends Component {
   }
 
   componentDidMount() {
+    // axios
+    //   .get(API_URL + "categories")
+    //   .then((res) => {
+    //     const categories = res.data;
+    //     console.log('categories',categories)
+    //     this.setState({ categories });
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error yaa ", error);
+    //   });
+
     axios
-      .get(API_URL + "categories")
+      .get(API_URL + "menuTypes")
       .then((res) => {
         const categories = res.data;
         console.log('categories',categories)
@@ -39,6 +50,7 @@ export default class ListCategories extends Component {
       .catch((error) => {
         console.log("Error yaa ", error);
       });
+    
   }
 
   render() {
@@ -56,12 +68,13 @@ export default class ListCategories extends Component {
               return(
                 <ListGroup.Item
                   key={category.id}
-                  onClick={() => changeCategory(category.nama)}
-                  className={categoriYangDipilih === category.nama && "category-aktif"}
+                  onClick={() => changeCategory(category.id)}
+                  className={categoriYangDipilih === category.id && "category-aktif"}
                   style={{cursor: 'pointer'}}
                 >
                   <h5>
-                    <Icon nama={category.nama} /> {category.nama}
+                    {/* <Icon name={category.name} /> {category.name} */}
+                    {category.name}
                   </h5>
                 </ListGroup.Item>
               )
