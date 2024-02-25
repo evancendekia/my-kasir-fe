@@ -90,6 +90,17 @@ export default class Order extends Component {
       });
   };
 
+  submitTotalBayar = (totalBayar) => {
+    const pesanan = {
+        total_bayar: totalBayar,
+        menus: this.props.keranjangs
+    }
+
+    axios.post(API_URL+"pesanans", pesanan).then((res) => {
+        this.props.history.push('/sukses')
+    })
+  };
+
   hapusPesanan = (id) => {
     this.handleClose();
 
@@ -112,6 +123,10 @@ export default class Order extends Component {
 
   render() {
     const { keranjangs } = this.props;
+    
+    const totalBayar = keranjangs.reduce(function (result, item) {
+      return result + item.total_harga;
+    }, 0);
     return (
       <Col md={3} className="mt-3 px-3">
         <h4>
@@ -162,8 +177,16 @@ export default class Order extends Component {
               </ListGroup>
             </Card.Body>
             <Card.Footer className="m-0 p-1">
+              <div>
+              <h5>
+                Total Harga :{" "}
+                <strong className="float-right mr-2">
+                  Rp. {numberWithCommas(totalBayar)}
+                </strong>
+              </h5>
+              </div>
 							<div className="d-flex justify-content-between">
-								<Button variant="primary" className="m-1" style={{display: "block", width: "100%"}}>
+								<Button variant="primary" className="m-1" style={{display: "block", width: "100%"}} onClick={() => this.submitTotalBayar(totalBayar)}>
                   <FontAwesomeIcon icon={faShoppingCart} /> <strong>BAYAR</strong>
                 </Button>
 							</div>

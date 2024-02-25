@@ -70,7 +70,19 @@ export default class Home extends Component {
       });
   };
 
-  masukKeranjang = (value) => {
+  updateKeranjang = () =>{
+    axios
+      .get(API_URL + "keranjangs")
+      .then((res) => {
+        const keranjangs = res.data;
+        this.setState({ keranjangs });
+      })
+      .catch((error) => {
+        console.log("Error yaa ", error);
+      });
+  }
+
+  masukKeranjang = async (value) => {
     axios
       .get(API_URL + "keranjangs?product.id=" + value.id)
       .then((res) => {
@@ -91,6 +103,7 @@ export default class Home extends Component {
                 button: false,
                 timer: 1500,
               });
+              this.updateKeranjang();
             })
             .catch((error) => {
               console.log("Error yaa ", error);
@@ -112,11 +125,13 @@ export default class Home extends Component {
                 button: false,
                 timer: 1500,
               });
+              this.updateKeranjang();
             })
             .catch((error) => {
               console.log("Error yaa ", error);
             });
         }
+
       })
       .catch((error) => {
         console.log("Error yaa ", error);

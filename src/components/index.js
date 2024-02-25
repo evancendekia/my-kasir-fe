@@ -9,5 +9,7 @@ import WaitingList from '../pages/Dashboard/Component/WaitingList'
 import ListMenuCategory from '../pages/Resto/Component/ListMenuCategory'
 import ListMenu from '../pages/Resto/Component/ListMenu'
 import Order from '../pages/Resto/Component/Order'
+import LineChart from '../pages/Chart/Component/LineChart'
+import StackedChart from '../pages/Chart/Component/StackedChart'
 
-export { Hasil, ListCategories, NavbarComponent, Menus, TableList, WaitingList, DetailMeja, DashboardSide, ListMenuCategory, ListMenu, Order}
+export { Hasil, ListCategories, NavbarComponent, Menus, TableList, WaitingList, DetailMeja, DashboardSide, ListMenuCategory, ListMenu, Order, LineChart, StackedChart}
