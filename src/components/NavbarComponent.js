@@ -24,7 +24,7 @@ const NavbarComponent = () => {
           <Nav.Link href="/" className={location.pathname == '/' || location.pathname == "/home" ? "active" : ""} >Home</Nav.Link>
           <Nav.Link href="/table" className={location.pathname == "/table" ? "active" : ""} >Meja</Nav.Link>
           <Nav.Link href="/resto" className={location.pathname == "/resto" ? "active" : ""} >Resto</Nav.Link>
-          <Nav.Link href="#link" className={location.pathname == "/#link" ? "active" : ""} >Laporan</Nav.Link>
+          <Nav.Link href="report" className={location.pathname == "/report" ? "active" : ""} >Laporan</Nav.Link>
           <Nav.Link href="/chart" className={location.pathname == "/chart" ? "active" : ""}>Statistik</Nav.Link>
           <Nav.Link href="/setting" className={location.pathname == "/setting" ? "active" : ""}>Pengaturan</Nav.Link>
         </Nav>

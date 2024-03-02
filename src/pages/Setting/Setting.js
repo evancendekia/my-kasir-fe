@@ -192,7 +192,7 @@ export default class Setting extends Component {
         <div style={{maxHeight: "100%", overflow: "hidden", margin: "auto"}} className="mt-4">
           <Accordion defaultActiveKey={['4']} alwaysOpen>
             <Accordion.Item eventKey="1">
-              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /> Akun</Accordion.Header>
+              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /><b>AKUN</b></Accordion.Header>
               <Accordion.Body>
                 <Tabs
                   defaultActiveKey="data"
@@ -292,7 +292,7 @@ export default class Setting extends Component {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
-              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /> Paket</Accordion.Header>
+              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /><b>PAKET</b></Accordion.Header>
               <Accordion.Body>
               <Card>
                       <Card.Header>
@@ -342,7 +342,7 @@ export default class Setting extends Component {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="3">
-              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /> Meja</Accordion.Header>
+              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /><b>MEJA</b></Accordion.Header>
               <Accordion.Body>
                 <Tabs
                   defaultActiveKey="general"
@@ -478,7 +478,7 @@ export default class Setting extends Component {
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="4">
-              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /> Resto</Accordion.Header>
+              <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /><b>RESTO</b></Accordion.Header>
               <Accordion.Body>
               <Tabs
                   defaultActiveKey="data"

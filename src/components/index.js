@@ -11,5 +11,6 @@ import ListMenu from '../pages/Resto/Component/ListMenu'
 import Order from '../pages/Resto/Component/Order'
 import LineChart from '../pages/Chart/Component/LineChart'
 import StackedChart from '../pages/Chart/Component/StackedChart'
+import Filter from '../pages/Report/Component/Filter'
 
-export { Hasil, ListCategories, NavbarComponent, Menus, TableList, WaitingList, DetailMeja, DashboardSide, ListMenuCategory, ListMenu, Order, LineChart, StackedChart}
+export { Hasil, ListCategories, NavbarComponent, Menus, TableList, WaitingList, DetailMeja, DashboardSide, ListMenuCategory, ListMenu, Order, LineChart, StackedChart, Filter}
