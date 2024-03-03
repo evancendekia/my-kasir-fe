@@ -5,7 +5,11 @@ function FormatIDR(intNum){
     }).format(intNum)
   )
 }   
-
+function FormatMoney(intNum){
+  return (new Intl.NumberFormat('id-ID').format(intNum)
+  )
+}   
 module.exports = {
-  FormatIDR
+  FormatIDR,
+  FormatMoney
 }

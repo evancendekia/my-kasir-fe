@@ -1,10 +1,18 @@
 import React, { Component, useState, useEffect } from "react";
-import { Row, Col, Container, Accordion } from "react-bootstrap";
+import { Row, Col, Container, Accordion, Form, InputGroup } from "react-bootstrap";
 import { TableList, DashboardSide, Filter } from "../../components";
 import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
 import * as generalHelper from "../../helpers/generalHelpers"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUtensils,
+  faCoffee,
+  faCheese,
+  faArrowRight
+} from "@fortawesome/free-solid-svg-icons";
+
 
 import withFixedColumns from "react-table-hoc-fixed-columns";
 import ReactTable from "react-table";
@@ -236,7 +244,7 @@ export default class Report extends Component {
               </h4>
               <hr />
               <Row className="overflow-auto" style={{overflowY: "scroll", maxHeight: "80vh", margin: "auto"}}>
-                <Accordion defaultActiveKey="1">
+                <Accordion defaultActiveKey="1" alwaysOpen>
                   <Accordion.Item eventKey="1">
                     <Accordion.Header><b>BILLING</b></Accordion.Header>
                     <Accordion.Body>
@@ -284,13 +292,97 @@ export default class Report extends Component {
                   <Accordion.Item eventKey="3">
                     <Accordion.Header><b>RINGKASAN</b></Accordion.Header>
                     <Accordion.Body>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in
-                      reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                      culpa qui officia deserunt mollit anim id est laborum.
+                      <Form.Group as={Row} className="mb-0" controlId="formPlaintextEmail">
+                        <Row>
+                          <Form.Label column sm="2">
+                            Total Billing
+                          </Form.Label>
+                          <Col sm="2"  >
+                            <InputGroup className="mb-1">
+                              <InputGroup.Text>Rp</InputGroup.Text>
+                              <Form.Control defaultValue={generalHelper.FormatMoney(1200000)} />
+                            </InputGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Form.Label column sm="2">
+                            Total Resto
+                          </Form.Label>
+                          <Col sm="2"  >
+                            <InputGroup className="mb-1">
+                              <InputGroup.Text>Rp</InputGroup.Text>
+                              <Form.Control defaultValue={generalHelper.FormatMoney(1500000)} />
+                            </InputGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          {/* <Form.Label column sm="1">
+                          </Form.Label> */}
+                          <Form.Label column sm="2">
+                            <FontAwesomeIcon icon={faArrowRight} className="me-2" />
+                            Makanan
+                          </Form.Label>
+                          <Col sm="2" className="ms-5">
+                            <InputGroup className="mb-1">
+                              <InputGroup.Text>Rp</InputGroup.Text>
+                              <Form.Control defaultValue={generalHelper.FormatMoney(500000)} />
+                            </InputGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          {/* <Form.Label column sm="1">
+                          </Form.Label> */}
+                          <Form.Label column sm="2">
+                            <FontAwesomeIcon icon={faArrowRight} className="me-2" />
+                            Minuman
+                          </Form.Label>
+                          <Col sm="2" className="ms-5">
+                            <InputGroup className="mb-1">
+                              <InputGroup.Text>Rp</InputGroup.Text>
+                              <Form.Control defaultValue={generalHelper.FormatMoney(350000)} />
+                            </InputGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          {/* <Form.Label column sm="1">
+                          </Form.Label> */}
+                          <Form.Label column sm="2">
+                            <FontAwesomeIcon icon={faArrowRight} className="me-2" />
+                            Rokok
+                          </Form.Label>
+                          <Col sm="2" className="ms-5">
+                            <InputGroup className="mb-1">
+                              <InputGroup.Text>Rp</InputGroup.Text>
+                              <Form.Control defaultValue={generalHelper.FormatMoney(400000)} />
+                            </InputGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          {/* <Form.Label column sm="1">
+                          </Form.Label> */}
+                          <Form.Label column sm="2">
+                            <FontAwesomeIcon icon={faArrowRight} className="me-2" />
+                            Lain-lain
+                          </Form.Label>
+                          <Col sm="2" className="ms-5">
+                            <InputGroup className="mb-1">
+                              <InputGroup.Text>Rp</InputGroup.Text>
+                              <Form.Control defaultValue={generalHelper.FormatMoney(150000)} />
+                            </InputGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Form.Label column sm="2">
+                            Total PPN
+                          </Form.Label>
+                          <Col sm="2"  >
+                            <InputGroup className="mb-1">
+                              <InputGroup.Text>Rp</InputGroup.Text>
+                              <Form.Control defaultValue={generalHelper.FormatMoney(130000)} />
+                            </InputGroup>
+                          </Col>
+                        </Row>
+                        </Form.Group>
                     </Accordion.Body>
                   </Accordion.Item>
                   <Accordion.Item eventKey="4">
