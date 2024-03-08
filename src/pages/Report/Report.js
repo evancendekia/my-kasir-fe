@@ -1,10 +1,11 @@
 import React, { Component, useState, useEffect } from "react";
-import { Row, Col, Container, Accordion, Form, InputGroup } from "react-bootstrap";
+import { Row, Col, Container, Accordion, Form, InputGroup, Tab, Tabs, Card, Button, Table } from "react-bootstrap";
 import { TableList, DashboardSide, Filter } from "../../components";
 import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
 import * as generalHelper from "../../helpers/generalHelpers"
+import { faPlus, faEdit, faTrash, faTools, faBan, faCheckCircle, faFileInvoice } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUtensils,
@@ -388,13 +389,97 @@ export default class Report extends Component {
                   <Accordion.Item eventKey="4">
                     <Accordion.Header><b>FAKTUR</b></Accordion.Header>
                     <Accordion.Body>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in
-                      reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                      culpa qui officia deserunt mollit anim id est laborum.
+                    <Tabs
+                      defaultActiveKey="billing"
+                      id="uncontrolled-tab-example"
+                      className="mb-3"
+                    >
+                      <Tab eventKey="billing" title="Billing" >
+                        <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}}  className="m-0">
+                          <thead>
+                            <tr className="text-center">
+                              <th style={{width: "7vw"}}>#</th>
+                              <th>No Faktur</th>
+                              <th>Waktu</th>
+                              <th>Harga</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                <td className="text-center">1</td>
+                                <td className="text-center">RES240302-01</td>
+                                <td className="text-center">02 Mar 2024</td>
+                                <td className="text-center">{generalHelper.FormatIDR(150000)}</td>
+                                <td className="text-center">
+                                  <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faFileInvoice} /> Tampilkan</Button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="text-center">1</td>
+                                <td className="text-center">RES240302-02</td>
+                                <td className="text-center">02 Mar 2024</td>
+                                <td className="text-center">{generalHelper.FormatIDR(175000)}</td>
+                                <td className="text-center">
+                                  <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faFileInvoice} /> Tampilkan</Button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="text-center">1</td>
+                                <td className="text-center">RES240302-03</td>
+                                <td className="text-center">02 Mar 2024</td>
+                                <td className="text-center">{generalHelper.FormatIDR(90000)}</td>
+                                <td className="text-center">
+                                  <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faFileInvoice} /> Tampilkan</Button>
+                                </td>
+                              </tr>
+                          </tbody>
+                        </Table>
+                      </Tab>
+                      <Tab eventKey="resto" title="Resto" >
+                            
+                            <Table bordered striped responsive style={{ zIndex: 9999, overflow: "visible"}}  className="m-0">
+                              <thead>
+                                <tr className="text-center">
+                                  <th style={{width: "7vw"}}>#</th>
+                                  <th>No Faktur</th>
+                                  <th>Waktu</th>
+                                  <th>Harga</th>
+                                  <th>Action</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                    <td className="text-center">1</td>
+                                    <td className="text-center">RES240302-01</td>
+                                    <td className="text-center">02 Mar 2024</td>
+                                    <td className="text-center">{generalHelper.FormatIDR(150000)}</td>
+                                    <td className="text-center">
+                                      <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faFileInvoice} /> Tampilkan</Button>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="text-center">1</td>
+                                    <td className="text-center">RES240302-02</td>
+                                    <td className="text-center">02 Mar 2024</td>
+                                    <td className="text-center">{generalHelper.FormatIDR(120000)}</td>
+                                    <td className="text-center">
+                                      <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faFileInvoice} /> Tampilkan</Button>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="text-center">1</td>
+                                    <td className="text-center">RES240302-03</td>
+                                    <td className="text-center">02 Mar 2024</td>
+                                    <td className="text-center">{generalHelper.FormatIDR(100000)}</td>
+                                    <td className="text-center">
+                                      <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faFileInvoice} /> Tampilkan</Button>
+                                    </td>
+                                  </tr>
+                              </tbody>
+                            </Table>
+                      </Tab>
+                    </Tabs>
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
