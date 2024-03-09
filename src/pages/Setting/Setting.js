@@ -99,13 +99,6 @@ export default class Setting extends Component {
 
   componentDidMount () {
 
-    setInterval(()=>{
-      var today = new Date();
-      const dataTime = today.toLocaleTimeString(locale, { hour: 'numeric', hour12: false, minute: 'numeric', second: 'numeric' });
-      
-      this.setState({ time : dataTime, currentDateTime: today });
-    }, 1000 )
-
     axios
     .get(API_URL + "types" )
     .then((res) => {
@@ -531,6 +524,23 @@ export default class Setting extends Component {
                                               </thead>
                                               <tbody>
                                                 {
+                                                  (data.name == 'Semua' 
+                                                  ?
+                                                  menus.map((item, index)=>{
+                                                    return(
+                                                      <tr>
+                                                        <td className="text-center">{index+1}</td>
+                                                        <td className="text-center">{item.name}</td>
+                                                        <td className="text-center">{item.menuType.name}</td>
+                                                        <td className="text-center">{item.stock}</td>
+                                                        <td className="text-center">
+                                                          <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
+                                                          <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button>
+                                                        </td>
+                                                      </tr>
+                                                    )
+                                                  })
+                                                  :
                                                   menus.filter(function (item) {return item.menuTypeId == data.id}).map((item, index)=>{
                                                     return(
                                                       <tr>
@@ -540,11 +550,11 @@ export default class Setting extends Component {
                                                         <td className="text-center">{item.stock}</td>
                                                         <td className="text-center">
                                                           <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
-                                                          {/* <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button> */}
+                                                          <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button>
                                                         </td>
                                                       </tr>
                                                     )
-                                                  })
+                                                  }))
                                                 }
                                               </tbody>
                                             </Table>
