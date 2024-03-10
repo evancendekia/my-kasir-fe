@@ -7,17 +7,6 @@ import { isEqual } from "lodash";
 am4core.useTheme(am4themes_animated);
 
 function StackedChart(props) {
-    const {
-        // ChartName,
-        // ChartData,
-        // ValueName,
-        // Value2Name,
-        // HideXLabels,
-        // type,
-        // highlightedMaleFemale,
-        // highlightedTopPatient,
-        // DonutSliceClicked
-    } = props;
 
     useLayoutEffect(() => {
         var chart = am4core.create('StackedChart', am4charts.XYChart);

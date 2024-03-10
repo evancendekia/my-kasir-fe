@@ -317,8 +317,7 @@ export default class Report extends Component {
                           </Col>
                         </Row>
                         <Row>
-                          {/* <Form.Label column sm="1">
-                          </Form.Label> */}
+                          
                           <Form.Label column sm="2">
                             <FontAwesomeIcon icon={faArrowRight} className="me-2" />
                             Makanan
@@ -331,8 +330,7 @@ export default class Report extends Component {
                           </Col>
                         </Row>
                         <Row>
-                          {/* <Form.Label column sm="1">
-                          </Form.Label> */}
+                          
                           <Form.Label column sm="2">
                             <FontAwesomeIcon icon={faArrowRight} className="me-2" />
                             Minuman
@@ -345,8 +343,7 @@ export default class Report extends Component {
                           </Col>
                         </Row>
                         <Row>
-                          {/* <Form.Label column sm="1">
-                          </Form.Label> */}
+                          
                           <Form.Label column sm="2">
                             <FontAwesomeIcon icon={faArrowRight} className="me-2" />
                             Rokok
@@ -359,8 +356,7 @@ export default class Report extends Component {
                           </Col>
                         </Row>
                         <Row>
-                          {/* <Form.Label column sm="1">
-                          </Form.Label> */}
+                          
                           <Form.Label column sm="2">
                             <FontAwesomeIcon icon={faArrowRight} className="me-2" />
                             Lain-lain

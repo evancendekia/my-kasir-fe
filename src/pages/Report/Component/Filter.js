@@ -45,11 +45,9 @@ export default class Filter extends Component {
 	}
 
   getTimeLeft(add){
-    // this.randomDate();
     var date = new Date();
     var hour    = date.getHours();
     var newDate = new Date(2025, 2, 24, (hour+1), (10+add),13); //2025-02-05 22:10:13
-    // console.log('newDate', newDate)
 
     var seconds = Math.floor((newDate - (date))/1000);
     var minutes = Math.floor(seconds/60);
@@ -86,8 +84,7 @@ export default class Filter extends Component {
         </h4>
         <hr />
           <Card className="">
-            {/* <Card.Header className={`fw-bold ${this.getcolor(selectedTable.status)}`}>Meja : {selectedTable && selectedTable.nomor != null ? selectedTable.nomor : 'Pilih meja...'}</Card.Header> */}
-            <Card.Body className="border-1">
+           	<Card.Body className="border-1">
 							<Form>
 								<Form.Group className="mb-3">
 									<Form.Label htmlFor="dateStart">Tanggal Mulai</Form.Label>
@@ -102,7 +99,6 @@ export default class Filter extends Component {
 						<Card.Footer className="m-0 p-1">
 							<div className="d-flex justify-content-between">
 								<Button variant="primary" className="m-1" style={{display: "block", width: "100%"}}>Terapkan</Button>
-								{/* <Button variant="success" className="m-1" style={{display: "block", width: "100%"}}></Button> */}
 							</div>
             </Card.Footer>
           </Card>

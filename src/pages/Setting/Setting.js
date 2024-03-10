@@ -1,7 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { faPlus, faEdit, faTrash, faTools, faBan, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TableList, DashboardSide, WaitingList } from "../../components";
 import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
