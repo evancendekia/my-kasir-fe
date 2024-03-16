@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { API_URL } from "../../utils/constants";
 import axios from "axios";
 import swal from "sweetalert";
-import { Accordion, Tab, Tabs, Card, Table, Badge, Button, Row, Col, Form, Nav, InputGroup} from "react-bootstrap";
+import { Accordion, Tab, Tabs, Card, Table, Badge, Button, Row, Col, Form, Nav, InputGroup, Modal} from "react-bootstrap";
 import * as generalHelper from "../../helpers/generalHelpers"
+import { ModalJenisMeja } from "../../components";
 
 import withFixedColumns from "react-table-hoc-fixed-columns";
 import ReactTable from "react-table";
@@ -91,9 +92,11 @@ export default class Setting extends Component {
           accessor: 'contact_person',
           className: 'text-center border-bottom border-start border-end',
         },
-      ]
+      ],
+      modalJenisMejaShow : false 
     };
     this.onSelectTable = this.onSelectTable.bind(this);
+    this.showModalJenisMeja = this.showModalJenisMeja.bind(this);
   }
 
   componentDidMount () {
@@ -176,13 +179,16 @@ export default class Setting extends Component {
   onSelectTable(table){
     this.setState({ selectedTable: table });
   }
+  showModalJenisMeja(show){
+    this.setState({ modalJenisMejaShow: show });
+  }
 
 
   render() {
-    const { tablesType, tables, packages, accountTypes, accounts, menuTypes, menus } = this.state;
+    const { tablesType, tables, packages, accountTypes, accounts, menuTypes, menus, modalJenisMejaShow } = this.state;
     return (
         <div style={{maxHeight: "100%", overflow: "hidden", margin: "auto"}} className="mt-4">
-          <Accordion defaultActiveKey={['4']} alwaysOpen>
+          <Accordion defaultActiveKey={['3']} alwaysOpen>
             <Accordion.Item eventKey="1">
               <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /><b>AKUN</b></Accordion.Header>
               <Accordion.Body>
@@ -337,7 +343,7 @@ export default class Setting extends Component {
               <Accordion.Header><FontAwesomeIcon className="mx-2" icon={faTools} /><b>MEJA</b></Accordion.Header>
               <Accordion.Body>
                 <Tabs
-                  defaultActiveKey="general"
+                  defaultActiveKey="jenis"
                   id="uncontrolled-tab-example"
                   className="mb-3"
                 >
@@ -347,7 +353,7 @@ export default class Setting extends Component {
                         <div className="d-flex justify-content-between">
                           <div className="fw-bold">Data Jenis Meja</div>
                           <div>
-                            <Button variant="success" className="btn btn-sm"><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button>
+                            <Button variant="success" className="btn btn-sm"  onClick={() => this.showModalJenisMeja(true)}><FontAwesomeIcon size="sm" icon={faPlus} /> Tambah</Button>
                           </div>
                         </div>
                       </Card.Header>
@@ -389,6 +395,10 @@ export default class Setting extends Component {
                             })}
                           </tbody>
                         </Table>
+                        <ModalJenisMeja
+                          show={modalJenisMejaShow}
+                          onHide={() => this.showModalJenisMeja(false)}
+                        />
                       </Card.Body>
                     </Card>
                   </Tab>
