@@ -17,6 +17,13 @@ import 'react-table-hoc-fixed-columns/lib/styles.css' // important: this line mu
 const ReactTableFixedColumns = withFixedColumns(ReactTable);
 
 const locale = 'en';
+const defaultJenisMeja = {
+  id: null,
+  table_type: null,
+  price: null,
+  personal_price: null,
+  personal_time_minimum: null
+}
 
 export default class Setting extends Component {
   constructor(props) {
@@ -93,7 +100,9 @@ export default class Setting extends Component {
           className: 'text-center border-bottom border-start border-end',
         },
       ],
-      modalJenisMejaShow : false 
+      modalJenisMejaShow : false,
+      modalJenisMejaAction : "add",
+      detailjenisMeja: defaultJenisMeja
     };
     this.onSelectTable = this.onSelectTable.bind(this);
     this.showModalJenisMeja = this.showModalJenisMeja.bind(this);
@@ -179,13 +188,17 @@ export default class Setting extends Component {
   onSelectTable(table){
     this.setState({ selectedTable: table });
   }
-  showModalJenisMeja(show){
-    this.setState({ modalJenisMejaShow: show });
+  showModalJenisMeja(show, type = 'add', detailjenisMeja = defaultJenisMeja){
+    this.setState({ 
+      modalJenisMejaShow: show,
+      modalJenisMejaAction: type,
+      detailjenisMeja: detailjenisMeja 
+    });
   }
 
 
   render() {
-    const { tablesType, tables, packages, accountTypes, accounts, menuTypes, menus, modalJenisMejaShow } = this.state;
+    const { tablesType, tables, packages, accountTypes, accounts, menuTypes, menus, modalJenisMejaShow, detailjenisMeja, modalJenisMejaAction } = this.state;
     return (
         <div style={{maxHeight: "100%", overflow: "hidden", margin: "auto"}} className="mt-4">
           <Accordion defaultActiveKey={['3']} alwaysOpen>
@@ -387,7 +400,7 @@ export default class Setting extends Component {
                                     })}
                                   </td>
                                   <td className="text-center">
-                                    <Button variant="primary" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
+                                    <Button variant="primary" className="btn btn-sm mx-1" onClick={() => this.showModalJenisMeja(true, "edit", type)}><FontAwesomeIcon size="sm" icon={faEdit} /> Ubah</Button>
                                     <Button variant="danger" className="btn btn-sm mx-1"><FontAwesomeIcon size="sm" icon={faTrash} /> Hapus</Button>
                                   </td>
                                 </tr>
@@ -398,6 +411,8 @@ export default class Setting extends Component {
                         <ModalJenisMeja
                           show={modalJenisMejaShow}
                           onHide={() => this.showModalJenisMeja(false)}
+                          dataJenisMeja={detailjenisMeja}
+                          action={modalJenisMejaAction}
                         />
                       </Card.Body>
                     </Card>

@@ -1,5 +1,6 @@
 import React from "react";
 import { numberWithCommas } from "../../../utils/utils";
+import * as generalHelper from "../../../helpers/generalHelpers"
 import { Card, Button, Row, Col, Form, InputGroup, Modal} from "react-bootstrap";
 
 const ModaljenisMeja = (props) => {
@@ -12,7 +13,7 @@ const ModaljenisMeja = (props) => {
     >
       <Modal.Header closeButton style={{backgroundColor :"dark"}}>
         <Modal.Title id="contained-modal-title-vcenter">
-          Tambah Jenis Meja
+          { props.action == 'edit' ? "Ubah Data Jenis Meja" : "Tambah Jenis Meja" }
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -24,6 +25,7 @@ const ModaljenisMeja = (props) => {
                 <Form.Control
                   type="text"
                   placeholder="Jenis Meja"
+                  value={props.dataJenisMeja.table_type}
                   autoFocus
                 />
               </Form.Group>
@@ -38,6 +40,7 @@ const ModaljenisMeja = (props) => {
                   <Form.Control 
                     type="text"
                     placeholder="50.000" 
+                    value={props.dataJenisMeja.price != null ? generalHelper.FormatIDR(props.dataJenisMeja.price) : null}
                     autoFocus
                   />
                 </InputGroup>
@@ -51,6 +54,7 @@ const ModaljenisMeja = (props) => {
                   <Form.Control 
                     type="text"
                     placeholder="65.000" 
+                    value={props.dataJenisMeja.personal_price != null ? generalHelper.FormatIDR(props.dataJenisMeja.personal_price) : null}
                     autoFocus
                   />
                 </InputGroup>
@@ -59,12 +63,13 @@ const ModaljenisMeja = (props) => {
           </Row>
           <Row>
             <Col sm={6}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
               <Form.Label>Waktu Minimum</Form.Label>
               <InputGroup>
                 <Form.Control 
                   type="text"
                   placeholder="30" 
+                  value={props.dataJenisMeja.personal_time_minimum}
                   autoFocus
                 />
                 <InputGroup.Text>Menit</InputGroup.Text>
@@ -75,7 +80,10 @@ const ModaljenisMeja = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success">Submit</Button>
+        {props.action == 'edit' 
+        ? (<Button>Save</Button>) 
+        : (<Button variant="success">Submit</Button>)
+        }
         {/* <Button onClick={props.onHide}>Close</Button> */}
       </Modal.Footer>
     </Modal>
